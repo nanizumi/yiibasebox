@@ -1,0 +1,44 @@
+---
+  - name: remove local configuration
+    command: rm /home/vagrant/.my.cnf removes=/home/vagrant/.my.cnf
+    
+  - name: install MySQL
+    apt: name={{ item }} state=latest
+    with_items:
+      - mysql-server
+      - mysql-client
+      - python-mysqldb
+
+    # 'localhost' needs to be the last item for idempotency, see
+    # http://ansible.cc/docs/modules.html#mysql-user
+  - name: update mysql root password for all root accounts
+    mysql_user: name=root host={{ item }} password={{ mysql_root_password }} priv=*.*:ALL,GRANT
+    with_items:
+      - "{{ ansible_hostname }}"
+      - 127.0.0.1
+      - ::1
+      - localhost
+
+  - name: add mysql user
+    mysql_user: name={{ mysql_user }}
+                host={{ item }}
+                password={{ mysql_user_pass }} priv=*.*:ALL,GRANT
+                login_user=root
+                login_password={{ mysql_root_password }}
+    with_items:
+      - "{{ ansible_hostname }}"
+      - 127.0.0.1
+      - ::1
+      - localhost
+
+  - name: create mysql databases
+    mysql_db: name={{ item }} state=present login_user=root login_password={{ mysql_root_password }}
+    with_items: mysql_databases
+
+  - file: path=/etc/mysql/conf.d state=directory
+  - name: "Set MySQL number of connections"
+    copy: src=/vagrant/ansible/roles/mysql/templates/vagrant_mysql.cnf dest=/etc/mysql/conf.d/vagrant_mysql.cnf
+    notify: restart mysql
+
+  - name: Install mysql command line client configuration file
+    template: src=my.cnf.tpl dest=/home/vagrant/.my.cnf owner=vagrant group=vagrant

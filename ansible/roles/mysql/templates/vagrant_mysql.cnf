@@ -1,0 +1,5 @@
+[mysqld]
+max_connections = 400
+
+[innodb]
+innodb_file_per_table = 1
