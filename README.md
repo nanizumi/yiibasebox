@@ -3,4 +3,5 @@ yiibasebox
 
 Base vagrant box
 
-A simple readme
+A *vagrant* box based on phansible and vagrant-lamp-ansible.
+
