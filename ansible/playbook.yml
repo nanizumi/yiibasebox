@@ -4,7 +4,7 @@
   vars:
     doc_root: /vagrant/html
     sys_packages: ["vim"]
-    php_packages: ["php5-cli","php5-common","php5-mcrypt","php5-memcache","php5-memcached","php5-intl"]
+    php_packages: ["php5-cli","php5-common","php5-mcrypt","php5-memcache","php5-memcached","php5-intl","php5-xdebug"]
     php_ppa: php5
     mysql_user: db_user
     mysql_user_pass: vA7YyMWdRx
