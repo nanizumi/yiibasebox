@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
     #end
     
 	## Ansible will run in guest on windows machines
-	config.vm.provision :shell, :path => "ansible/provision.sh"
+	config.vm.provision :shell, :path => "yiibasebox/ansible/provision.sh"
 
-    config.vm.synced_folder "./", "/vagrant", id: "vagrant-root" #, :nfs => true
+    config.vm.synced_folder "./../", "/vagrant", id: "vagrant-root" #, :nfs => true
 end
