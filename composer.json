@@ -1,0 +1,13 @@
+{
+    "name": "nanizumi/yiibasebox",
+    "description": "A simple vagrant box ready to deploy yii app",
+    "authors": [
+        {
+            "name": "nanizumi",
+            "email": "nanizumi@gmail.com"
+        }
+    ],
+    "require": {
+
+    }
+}
