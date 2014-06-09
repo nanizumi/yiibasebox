@@ -9,3 +9,6 @@ printf '[vagrant]\nlocalhost\n' | sudo tee /etc/ansible/hosts > /dev/null
 
 echo Running provisioner: ansible
 PYTHONUNBUFFERED=1 ansible-playbook -c local /vagrant/ansible/playbook.yml
+
+#todo: asible this
+sudo php5enmod mcrypt
